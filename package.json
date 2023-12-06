@@ -1,0 +1,26 @@
+{
+  "name": "canvas-my-hole-life",
+  "version": "0.0.1",
+  "description": "my-hole-life",
+  "main": "canvas-my-hole-life.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KyleBing/canvas-my-hole-life.git"
+  },
+  "keywords": [
+    "canvas",
+    "js"
+  ],
+  "author": "KyleBing",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/KyleBing/canvas-my-hole-life/issues"
+  },
+  "homepage": "https://github.com/KyleBing/canvas-my-hole-life#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
+}
