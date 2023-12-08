@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>我的整个人生</title>
     <script src="moment.min.js"></script>
-    <script src="canvas-my-hole-life.js?v=20231208141250"></script>
+    <script src="canvas-my-hole-life.js?v=20231208204259"></script>
     <script>
         let life = new CanvasMyHoleLife(
             '我的一生',
@@ -38,7 +38,49 @@
 <!--<button onclick="canvasMine.animationStop()">Stop</button>-->
 <!--<button onclick="canvasMine.animationStart()">Start</button>-->
 <a class="github-btn" href="https://github.com/KyleBing/canvas-my-hole-life">github</a>
+
+<div class="operation hidden">
+    <input class="date-birth" type="text" placeholder="出生日期：格式 2023-12-08" value="1991-03-09">
+    <input class="date-die" type="text" placeholder="你打算活几年：数字" value="75">
+    <textarea class="date-point-array" rows="10" placeholder="重要时间点">[
+    {"name": "母亲去世", "dayIndex": "", "date": "1998-06-17", "dayRange": [], "ageRange": [], "color": "black", "text": ""},
+    {"name": "爷爷去世", "dayIndex": "", "date": "2018-12-14", "dayRange": [], "ageRange": [], "color": "black", "text": ""},
+    {"name": "父亲去世", "dayIndex": "", "date": "2021-03-03", "dayRange": [], "ageRange": [], "color": "black", "text": ""},
+    {"name": "奶奶去世", "dayIndex": "", "date": "2023-07-23", "dayRange": [], "ageRange": [], "color": "black", "text": ""},
+    {"name": "75岁", "dayIndex": "", "date": "2066-03-09", "dayRange": [], "ageRange": [], "color": "gray", "text": ""}
+]</textarea>
+    <textarea class="date-phase-array" rows="10" placeholder="阶段数组">[
+    {"name":"小学","dayIndex":"","date":"","dayRange":[],"ageRange":[8,14],"color":"#009159","text":"小"},
+    {"name":"中学","dayIndex":"","date":"","dayRange":[],"ageRange":[14,17],"color":"orange","text":"中"},
+    {"name":"高中","dayIndex":"","date":"","dayRange":[],"ageRange":[17,19],"color":"red","text":"高"},
+    {"name":"务工","dayIndex":"","date":"","dayRange":[],"ageRange":[19,20],"color":"purple","text":"工"},
+    {"name":"复读","dayIndex":"","date":"","dayRange":[],"ageRange":[20,22],"color":"#009159","text":"复"},
+    {"name":"大学","dayIndex":"","date":"","dayRange":[],"ageRange":[22,25],"color":"blue","text":"大"},
+    {"name":"在家","dayIndex":"","date":"","dayRange":[],"ageRange":[27,29],"color":"DodgerBlue","text":"家"}
+]</textarea>
+    <div class="tip">
+        <p>根据输入框中的 json 内容修改成你自己的数据，然后点击确定即可</p>
+    </div>
+    <div class="button-group">
+        <button onclick="life.toggleDatePoint()">重要时间点显示</button>
+        <button onclick="toggleTextareaDisplay()">配置框</button>
+        <button onclick="applyNewConfig()">确定</button>
+    </div>
+</div>
 </body>
+
+<script>
+    function toggleTextareaDisplay(){
+        document.querySelector('.operation').classList.toggle('hidden')
+    }
+    function applyNewConfig(){
+        let newLifePhaseJsonString = JSON.parse(document.querySelector('.date-phase-array').value)
+        let newLifePointJsonString = JSON.parse(document.querySelector('.date-point-array').value)
+        let dateBirthString = document.querySelector('.date-birth').value.trim()
+        let holeLifeAge = document.querySelector('.date-die').value.trim()
+        life.applyLifeConfig(dateBirthString, Number(holeLifeAge), newLifePhaseJsonString, newLifePointJsonString)
+    }
+</script>
 
 <style>
     .github-btn{
@@ -53,6 +95,43 @@
     }
     .github-btn:hover {
         color: magenta;
+    }
+    .operation{
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        position: fixed;
+        bottom: 40px;
+        left: 10px;
+    }
+    .operation.hidden textarea, .operation.hidden input, .operation.hidden .tip{
+        display: none;
+    }
+    .operation > * {
+        margin-bottom: 5px;
+    }
+    .tip{
+        font-size: 13px;
+    }
+    button{
+        margin-right: 5px;
+        font-size: 12px;
+    }
+    textarea, input{
+        white-space: nowrap;
+        padding: 5px 8px;
+        line-height: 1.2;
+        width: 800px;
+        font-family: Consolas;
+        font-size: 10px;
+    }
+    textarea:focus, input:focus{
+        box-shadow: none;
+        border-color: mediumseagreen;
+    }
+    .button-group{
+        display: flex;
+        justify-content: flex-start;
     }
 </style>
 </html>
