@@ -22,7 +22,7 @@ let  LIFE_PHASE = [
 
 let LIFE_POINT = [
     {name: '母亲去世', dayIndex: '', date: '1998-06-17', dayRange: [], ageRange: [], color: 'black', text: ''},
-    {name: '她', dayIndex: '', date: '2016-12-20', dayRange: [], ageRange: [], color: 'black', text: ''},
+    // {name: '她', dayIndex: '', date: '2016-12-20', dayRange: [], ageRange: [], color: 'black', text: ''},
     {name: '爷爷去世', dayIndex: '', date: '2018-12-14', dayRange: [], ageRange: [], color: 'black', text: ''},
     {name: '父亲去世', dayIndex: '', date: '2021-03-03', dayRange: [], ageRange: [], color: 'black', text: ''},
     {name: '奶奶去世', dayIndex: '', date: '2023-07-23', dayRange: [], ageRange: [], color: 'black', text: ''},
