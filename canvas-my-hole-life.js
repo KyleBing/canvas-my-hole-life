@@ -15,8 +15,8 @@ let  LIFE_PHASE = [
     {name: '高中', dayIndex: '', date: '', dayRange: [], ageRange: [17,20], color: 'red',    text: '高'},
     {name: '打工', dayIndex: '', date: '', dayRange: [], ageRange: [20,22], color: 'purple', text: '工'},
     {name: '大学', dayIndex: '', date: '', dayRange: [], ageRange: [22,25], color: 'blue',   text: '大'},
-    {name: '退休', dayIndex: '', date: '', dayRange: [], ageRange: [65,72], color: 'blue',   text: '休'},
-    {name: '卧床', dayIndex: '', date: '', dayRange: [], ageRange: [72,75], color: 'gray',   text: '床'},
+    // {name: '退休', dayIndex: '', date: '', dayRange: [], ageRange: [65,72], color: 'blue',   text: '休'},
+    // {name: '卧床', dayIndex: '', date: '', dayRange: [], ageRange: [72,75], color: 'gray',   text: '床'},
 ]
 
 let LIFE_POINT = [
@@ -267,7 +267,7 @@ function showCanvasInfo(name, ctx, frame, daysAll, daysPassed, ageLeft){
     ctx.beginPath()
     ctx.fillStyle = 'white'
     ctx.font = '20px sans-serf'
-    ctx.fillRect(10, frame.height - 53, 220, 30)
+    ctx.fillRect(10, frame.height - 55, 730, 30)
     ctx.fillStyle = 'black'
     ctx.fillText(`${name}  人生进度 ${daysPassed}/${daysAll} (${(daysPassed/daysAll * 100).toFixed(2)}%)  |  剩${daysAll - daysPassed}天 - ${ageLeft}年    1格 = 1天`, 20, frame.height - 32)
     ctx.restore()
@@ -447,41 +447,3 @@ function dateFormatter(date, formatString) {
     return formatString
 }
 
-function dateProcess(dateString) {
-    let date = new Date(dateString)
-    let year = date.getFullYear()
-    let month = date.getMonth() + 1
-    let day = date.getDate()
-    let hour = date.getHours()
-    let minutes = date.getMinutes()
-    let seconds = date.getSeconds()
-    let week = date.getDay()
-    let timeLabel = ''
-    if (hour >= 23 && hour < 24 || hour <= 3 && hour >= 0) {
-        timeLabel = '深夜'
-    } else if (hour >= 19 && hour < 23) {
-        timeLabel = '晚上'
-    } else if (hour >= 14 && hour < 19) {
-        timeLabel = '傍晚'
-    } else if (hour >= 11 && hour < 14) {
-        timeLabel = '中午'
-    } else if (hour >= 6 && hour < 11) {
-        timeLabel = '早上'
-    } else if (hour >= 3 && hour < 6) {
-        timeLabel = '凌晨'
-    }
-
-    return {
-        year,
-        day,
-        month,
-        weekday: WEEKDAY[week],
-        weekShort: WEEKDAY_SHORT[week],
-        dateShort:`${padNumberWith0(month)}-${padNumberWith0(day)}`,
-        date:`${padNumberWith0(month)}月${padNumberWith0(day)}日`,
-        dateFull: `${year}年${month}月${day}日`,
-        dateFullSlash: `${year}/${month}/${day}`,
-        timeLabel: timeLabel,
-        time: `${padNumberWith0(hour)}:${padNumberWith0(minutes)}`
-    }
-}
