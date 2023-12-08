@@ -12,8 +12,9 @@
 let  LIFE_PHASE = [
     {name: '小学', dayIndex: '', date: '', dayRange: [], ageRange: [8, 14], color: 'green',  text: '小'},
     {name: '中学', dayIndex: '', date: '', dayRange: [], ageRange: [14,17], color: 'orange', text: '中'},
-    {name: '高中', dayIndex: '', date: '', dayRange: [], ageRange: [17,20], color: 'red',    text: '高'},
-    {name: '务工', dayIndex: '', date: '', dayRange: [], ageRange: [20,22], color: 'purple', text: '工'},
+    {name: '高中', dayIndex: '', date: '', dayRange: [], ageRange: [17,19], color: 'red',    text: '高'},
+    {name: '务工', dayIndex: '', date: '', dayRange: [], ageRange: [19,20], color: 'purple', text: '工'},
+    {name: '复读', dayIndex: '', date: '', dayRange: [], ageRange: [20,22], color: 'ForestGreen', text: '复'},
     {name: '大学', dayIndex: '', date: '', dayRange: [], ageRange: [22,25], color: 'blue',   text: '大'},
     {name: '在家', dayIndex: '', date: '', dayRange: [], ageRange: [27,29], color: 'DodgerBlue',   text: '家'},
     // {name: '退休', dayIndex: '', date: '', dayRange: [], ageRange: [65,72], color: 'blue',   text: '休'},
