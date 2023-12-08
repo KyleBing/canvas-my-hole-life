@@ -10,12 +10,21 @@
  */
 
 let  LIFE_PHASE = [
-    {name: '小学', dayRange: [], ageRange: [8, 14], color: 'green',  text: '小'},
-    {name: '中学', dayRange: [], ageRange: [14,17], color: 'orange', text: '中'},
-    {name: '高中', dayRange: [], ageRange: [17,20], color: 'red',  text: '高'},
-    {name: '打工', dayRange: [], ageRange: [20,22], color: 'purple',  text: '工'},
-    {name: '大学', dayRange: [], ageRange: [22,25], color: 'blue',   text: '大'},
-    // {name: '退休', dayRange: [], ageRange: [65,75], color: 'blue',   text: '休'},
+    {name: '小学', dayIndex: '', date: '', dayRange: [], ageRange: [8, 14], color: 'green',  text: '小'},
+    {name: '中学', dayIndex: '', date: '', dayRange: [], ageRange: [14,17], color: 'orange', text: '中'},
+    {name: '高中', dayIndex: '', date: '', dayRange: [], ageRange: [17,20], color: 'red',    text: '高'},
+    {name: '打工', dayIndex: '', date: '', dayRange: [], ageRange: [20,22], color: 'purple', text: '工'},
+    {name: '大学', dayIndex: '', date: '', dayRange: [], ageRange: [22,25], color: 'blue',   text: '大'},
+    {name: '退休', dayIndex: '', date: '', dayRange: [], ageRange: [65,72], color: 'blue',   text: '休'},
+    {name: '卧床', dayIndex: '', date: '', dayRange: [], ageRange: [72,75], color: 'gray',   text: '床'},
+]
+
+let LIFE_POINT = [
+    {name: '母亲去世', dayIndex: '', date: '1998-06-17', dayRange: [], ageRange: [], color: 'black', text: ''},
+    {name: '她', dayIndex: '', date: '2016-12-20', dayRange: [], ageRange: [], color: 'black', text: ''},
+    {name: '爷爷去世', dayIndex: '', date: '2018-12-14', dayRange: [], ageRange: [], color: 'black', text: ''},
+    {name: '父亲去世', dayIndex: '', date: '2021-03-03', dayRange: [], ageRange: [], color: 'black', text: ''},
+    {name: '奶奶去世', dayIndex: '', date: '2023-07-23', dayRange: [], ageRange: [], color: 'black', text: ''},
 ]
 
 class CanvasMyHoleLife {
@@ -27,22 +36,28 @@ class CanvasMyHoleLife {
      */
     constructor(name, isShowSerialNumber, isShowCanvasInfo)
     {
+        this.name = name
+
+        // 时间节点
         this.holeLifeAge = 75
-        this.now = new moment()
-        this.dateBirth = new moment('1991-03-09 05:46:00')
-        this.daysPassed = this.now.diff(this.dateBirth, 'days')
-        this.dateDie = this.dateBirth.clone()
-        this.dateDie.add(this.holeLifeAge, 'year')
-        this.daysHoleLife = this.dateDie.diff(this.dateBirth, 'days')
-        this.ageLeft = this.dateDie.diff(this.now, 'year')
+        this.momentNow = new moment()
+        this.momentBirth = new moment('1991-03-09 05:46:00')
+        this.daysPassed = this.momentNow.diff(this.momentBirth, 'days')
+        this.momentDie = this.momentBirth.clone()
+        this.momentDie.add(this.holeLifeAge, 'year')
+        this.daysHoleLife = this.momentDie.diff(this.momentBirth, 'days')
+        this.ageLeft = this.momentDie.diff(this.momentNow, 'year')
 
         LIFE_PHASE.forEach(item => {
             item.ageRange.forEach((year,index) => {
-
-                let tempMoment = this.dateBirth.clone()
+                let tempMoment = this.momentBirth.clone()
                 tempMoment.add(year, 'year')
-                item.dayRange[index] = tempMoment.diff(this.dateBirth, 'days')
+                item.dayRange[index] = tempMoment.diff(this.momentBirth, 'days')
             })
+        })
+        LIFE_POINT.forEach(item => {
+            let datePoint = new moment(item.date)
+            item.dayIndex = datePoint.diff(this.momentBirth, 'days')
         })
 
         console.log(LIFE_PHASE)
@@ -50,7 +65,6 @@ class CanvasMyHoleLife {
         this.isPlaying = false // 默认自动播放
         this.isShowCanvasInfo = isShowCanvasInfo
         this.isShowSerialNumber = isShowSerialNumber
-        this.columnOffsetXFirst = 400 // 第一列的开始，偏移量
 
         this.baseX = 600
         this.bgColor = 'white'
@@ -130,6 +144,8 @@ class CanvasMyHoleLife {
             c.save()
             c.beginPath()
 
+            let tempX = lastPosX // 为特殊标记使用的临时坐标
+            let tempY = lastPosY
             if (this.daysPassed < i){ // 未过的时间
                 let finalText = '〇'
                 let finalColor = 'gray'
@@ -140,6 +156,9 @@ class CanvasMyHoleLife {
                             finalFont = `bold 40px sans-serf`
                             finalText = `${phase.name} ( ${phase.ageRange[1] - phase.ageRange[0]}年 )`
                             finalColor = phase.color
+                            tempX = tempX + 15
+                            tempY = tempY - 5
+                            drawDot(c, {x:tempX - 8,y:tempY},2,3,'',phase.color)
                         } else {
                             finalText = phase.text
                             finalColor = phase.color
@@ -148,7 +167,7 @@ class CanvasMyHoleLife {
                 })
                 c.font = finalFont
                 c.fillStyle = finalColor
-                c.fillText(`${finalText}`, lastPosX, lastPosY)
+                c.fillText(`${finalText}`, tempX, tempY )
             } else { // 已过的日期
                 let finalText = '田'
                 let finalColor = 'black'
@@ -159,6 +178,9 @@ class CanvasMyHoleLife {
                             finalFont = `bold 40px sans-serf`
                             finalText = `${phase.name} ( ${phase.ageRange[1] - phase.ageRange[0]}年 )`
                             finalColor = phase.color
+                            tempX = tempX + 15
+                            tempY = tempY - 5
+                            drawDot(c, {x:tempX - 8,y:tempY},2,3,'',phase.color)
                         } else {
                             finalColor = phase.color
                             finalText = phase.text
@@ -167,17 +189,44 @@ class CanvasMyHoleLife {
                 })
                 c.font = finalFont
                 c.fillStyle = finalColor
-                c.fillText(`${finalText}`, lastPosX, lastPosY)
-
+                c.fillText(`${finalText}`, tempX, tempY )
             }
-
-
             c.restore()
         }
 
+        lastPosX = 20
+        lastPosY = 20
+        for (let i=0;i<this.daysHoleLife;i++) {
+            lastPosX = lastPosX + gapHorizontal
+            if (lastPosX + gapVertical > this.frame.width) {
+                lastPosX = 20
+                lastPosY = lastPosY + gapVertical
+            }
+
+            LIFE_POINT.forEach(item => {
+                if (i === item.dayIndex){
+                    c.fillStyle = 'white'
+                    c.fillRect(lastPosX + 15, lastPosY + 8, 105, 20)
+                    c.fillRect(lastPosX + 10, lastPosY - 35, (130-10)/4*item.name.length + 10, 38)
+                    c.fillStyle = item.color
+                    c.font = 'bold 30px sans-serf'
+                    c.fillText(`${item.name}`, lastPosX + 15, lastPosY - 5)
+                    c.font = 'bold 16px sans-serf'
+                    c.fillText(`${item.date}`, lastPosX + 20, lastPosY + 23)
+                    drawDot(c, {x:lastPosX + 8,y:lastPosY - 5},5,3,'',item.color)
+                }
+            })
+        }
+
+        // 最后的时间点
+        c.font = 'bold 40px sans-serf'
+        c.fillStyle = 'black'
+        c.fillText(`${this.holeLifeAge}岁`, lastPosX, lastPosY)
+
+
         // 展示 canvas 数据
         if (this.isShowCanvasInfo) {
-            showCanvasInfo(c, this.frame, this.daysHoleLife, this.daysPassed, this.ageLeft)
+            showCanvasInfo(this.name, c, this.frame, this.daysHoleLife, this.daysPassed, this.ageLeft)
         }
 
         if (this.isPlaying) {
@@ -213,14 +262,14 @@ class CanvasMyHoleLife {
  * @param timeline {''}
  * @param frame {{width, height}}
  */
-function showCanvasInfo(ctx, frame, daysAll, daysPassed, ageLeft){
+function showCanvasInfo(name, ctx, frame, daysAll, daysPassed, ageLeft){
     ctx.save()
     ctx.beginPath()
     ctx.fillStyle = 'white'
     ctx.font = '20px sans-serf'
     ctx.fillRect(10, frame.height - 53, 220, 30)
     ctx.fillStyle = 'black'
-    ctx.fillText(`${daysPassed}/${daysAll}  |  剩${daysAll - daysPassed}天 - ${ageLeft}年    1格 = 1天`, 20, frame.height - 32)
+    ctx.fillText(`${name}  人生进度 ${daysPassed}/${daysAll} (${(daysPassed/daysAll * 100).toFixed(2)}%)  |  剩${daysAll - daysPassed}天 - ${ageLeft}年    1格 = 1天`, 20, frame.height - 32)
     ctx.restore()
 }
 
@@ -247,8 +296,8 @@ function drawDot(ctx, center, radius, lineWidth, fillColor, strokeColor){
     ctx.beginPath()
     ctx.moveTo(center.x + radius, center.y)
     ctx.lineWidth = lineWidth || 0
-    ctx.strokeStyle = fillColor || 'black'
-    ctx.fillStyle =  strokeColor || 'white'
+    ctx.strokeStyle = strokeColor || 'black'
+    ctx.fillStyle =  fillColor || 'white'
     ctx.arc(center.x, center.y, radius,0, Math.PI * 2 )
     ctx.closePath()
     ctx.fill()
@@ -388,11 +437,11 @@ function dateFormatter(date, formatString) {
         "S": date.getMilliseconds()                     // 毫秒
     }
     if (/(y+)/.test(formatString)) {
-        formatString = formatString.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length))
+        formatString = formatString.replace(RegExp.$1, (date.getFullYear() + "").substring(4 - RegExp.$1.length))
     }
     for (let section in dateRegArray) {
         if (new RegExp("(" + section + ")").test(formatString)) {
-            formatString = formatString.replace(RegExp.$1, (RegExp.$1.length === 1) ? (dateRegArray[section]) : (("00" + dateRegArray[section]).substr(("" + dateRegArray[section]).length)))
+            formatString = formatString.replace(RegExp.$1, (RegExp.$1.length === 1) ? (dateRegArray[section]) : (("00" + dateRegArray[section]).substring(("" + dateRegArray[section]).length)))
         }
     }
     return formatString
