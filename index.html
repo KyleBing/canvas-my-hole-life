@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <title>我的整个人生</title>
     <script src="moment.min.js"></script>
-    <script src="canvas-my-hole-life.js?v=20231209090633"></script>
+    <script src="canvas-my-hole-life.js?v=20231209104325"></script>
     <script>
+        let dataPreset = getSearchData().v
         let life = new CanvasMyHoleLife(
             '我的整个人生',
             false,
             true,
+            Number(dataPreset)
         )
 
         /****************************
@@ -40,11 +42,15 @@
     <input class="date-birth" type="text" placeholder="出生日期：格式 2023-12-08" value="1991-03-09">
     <input class="date-die" type="text" placeholder="你打算活几年：数字" value="75">
     <textarea class="date-point-array" rows="10" placeholder="重要时间点">[
-    {"name": "母亲去世", "dayIndex": "", "date": "1998-06-17", "dayRange": [], "ageRange": [], "color": "black", "text": ""},
-    {"name": "爷爷去世", "dayIndex": "", "date": "2018-12-14", "dayRange": [], "ageRange": [], "color": "black", "text": ""},
-    {"name": "父亲去世", "dayIndex": "", "date": "2021-03-03", "dayRange": [], "ageRange": [], "color": "black", "text": ""},
-    {"name": "奶奶去世", "dayIndex": "", "date": "2023-07-23", "dayRange": [], "ageRange": [], "color": "black", "text": ""},
-    {"name": "75岁", "dayIndex": "", "date": "2066-03-09", "dayRange": [], "ageRange": [], "color": "gray", "text": ""}
+  {"name":"摩托车","dayIndex":"","date":"2021-07-07","dayRange":[],"ageRange":[],"color":"black","text":""},
+  {"name":"汽车","dayIndex":"","date":"2023-01-20","dayRange":[],"ageRange":[],"color":"black","text":""},
+  {"name":"她","dayIndex":"","date":"2016-12-20","dayRange":[],"ageRange":[],"color":"black","text":""},
+  {"name":"75岁","dayIndex":"","date":"2066-03-09","dayRange":[],"ageRange":[],"color":"gray","text":""},
+  {"name":"70岁","dayIndex":"","date":"2061-03-09","dayRange":[],"ageRange":[],"color":"gray","text":""},
+  {"name":"60岁","dayIndex":"","date":"2051-03-09","dayRange":[],"ageRange":[],"color":"gray","text":""},
+  {"name":"50岁","dayIndex":"","date":"2041-03-09","dayRange":[],"ageRange":[],"color":"gray","text":""},
+  {"name":"40岁","dayIndex":"","date":"2031-03-09","dayRange":[],"ageRange":[],"color":"gray","text":""},
+  {"name":"30岁","dayIndex":"","date":"2021-03-09","dayRange":[],"ageRange":[],"color":"gray","text":""}
 ]</textarea>
     <textarea class="date-phase-array" rows="10" placeholder="阶段数组">[
     {"name":"小学","dayIndex":"","date":"","dayRange":[],"ageRange":[8,14],"color":"#009159","text":"小"},

@@ -22,16 +22,26 @@ let LIFE_PHASE = [
 ]
 
 let LIFE_POINT = [
+    {name: '摩托车', dayIndex: '', date: '2021-07-07', dayRange: [], ageRange: [], color: 'black', text: ''},
+    {name: '汽车', dayIndex: '', date: '2023-01-20', dayRange: [], ageRange: [], color: 'black', text: ''},
+    {name: '她', dayIndex: '', date: '2016-12-20', dayRange: [], ageRange: [], color: 'black', text: ''},
+    {name: '75岁', dayIndex: '', date: '2066-03-09', dayRange: [], ageRange: [], color: 'gray', text: ''},
+    {name: '70岁', dayIndex: '', date: '2061-03-09', dayRange: [], ageRange: [], color: 'gray', text: ''},
+    {name: '60岁', dayIndex: '', date: '2051-03-09', dayRange: [], ageRange: [], color: 'gray', text: ''},
+    {name: '50岁', dayIndex: '', date: '2041-03-09', dayRange: [], ageRange: [], color: 'gray', text: ''},
+    {name: '40岁', dayIndex: '', date: '2031-03-09', dayRange: [], ageRange: [], color: 'gray', text: ''},
+    {name: '30岁', dayIndex: '', date: '2021-03-09', dayRange: [], ageRange: [], color: 'gray', text: ''},
+]
+
+
+
+let LIFE_POINT_MINE = [
     {name: '母亲去世', dayIndex: '', date: '1998-06-17', dayRange: [], ageRange: [], color: 'black', text: ''},
-    // {name: '她', dayIndex: '', date: '2016-12-20', dayRange: [], ageRange: [], color: 'black', text: ''},
     {name: '爷爷去世', dayIndex: '', date: '2018-12-14', dayRange: [], ageRange: [], color: 'black', text: ''},
     {name: '父亲去世', dayIndex: '', date: '2021-03-03', dayRange: [], ageRange: [], color: 'black', text: ''},
     {name: '奶奶去世', dayIndex: '', date: '2023-07-23', dayRange: [], ageRange: [], color: 'black', text: ''},
     {name: '75岁', dayIndex: '', date: '2066-03-09', dayRange: [], ageRange: [], color: 'gray', text: ''},
-    // {name: '70岁', dayIndex: '', date: '2061-03-09', dayRange: [], ageRange: [], color: 'gray', text: ''},
-    // {name: '60岁', dayIndex: '', date: '2051-03-09', dayRange: [], ageRange: [], color: 'gray', text: ''},
-    // {name: '50岁', dayIndex: '', date: '2041-03-09', dayRange: [], ageRange: [], color: 'gray', text: ''},
-    // {name: '40岁', dayIndex: '', date: '2031-03-09', dayRange: [], ageRange: [], color: 'gray', text: ''},
+
 ]
 
 class CanvasMyHoleLife {
@@ -40,14 +50,22 @@ class CanvasMyHoleLife {
      * @param name {String}主题名
      * @param isShowSerialNumber {Boolean} 是否显示序号
      * @param isShowCanvasInfo {Boolean} 是否显示 canvas 信息
+     * @param dataPreset {Number} 是否显示 canvas 信息
      */
-    constructor(name, isShowSerialNumber, isShowCanvasInfo)
+    constructor(name, isShowSerialNumber, isShowCanvasInfo, dataPreset)
     {
         this.name = name
         this.isShowDatePointer = false
 
+        switch (dataPreset){
+            case 1:
+                this.LIFE_POINT = LIFE_POINT_MINE
+                break
+            default:
+                this.LIFE_POINT = LIFE_POINT
+        }
+
         this.LIFE_PHASE = LIFE_PHASE
-        this.LIFE_POINT = LIFE_POINT
 
         this.dateBirthString = '1991-03-09 05:46:00'
         this.holeLifeAge = 75
