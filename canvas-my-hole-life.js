@@ -78,9 +78,9 @@ class CanvasMyHoleLife {
         }
     }
 
-    applyLifeConfig(dateBirthString, holeLifeAge, newLifePhaseJsonString, newLifePointJsonString){
-        this.LIFE_PHASE = newLifePhaseJsonString
-        this.LIFE_POINT = newLifePointJsonString
+    applyLifeConfig(dateBirthString, holeLifeAge, newLifePhase, newLifePoint){
+        this.LIFE_PHASE = newLifePhase.length > 0? newLifePhase : LIFE_PHASE
+        this.LIFE_POINT = newLifePoint.length > 0? newLifePoint : LIFE_POINT
         dateBirthString ? this.dateBirthString = dateBirthString : '1991-03-09 05:46:00';
         holeLifeAge ? this.holeLifeAge = holeLifeAge : 75;
         this.processDateArrayData()

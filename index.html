@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>我的整个人生</title>
     <script src="moment.min.js"></script>
-    <script src="canvas-my-hole-life.js?v=20231208204259"></script>
+    <script src="canvas-my-hole-life.js?v=20231209090633"></script>
     <script>
         let life = new CanvasMyHoleLife(
-            '我的一生',
+            '我的整个人生',
             false,
             true,
         )
@@ -35,10 +35,7 @@
 </head>
 
 <body>
-<!--<button onclick="canvasMine.animationStop()">Stop</button>-->
-<!--<button onclick="canvasMine.animationStart()">Start</button>-->
 <a class="github-btn" href="https://github.com/KyleBing/canvas-my-hole-life">github</a>
-
 <div class="operation hidden">
     <input class="date-birth" type="text" placeholder="出生日期：格式 2023-12-08" value="1991-03-09">
     <input class="date-die" type="text" placeholder="你打算活几年：数字" value="75">
@@ -74,11 +71,11 @@
         document.querySelector('.operation').classList.toggle('hidden')
     }
     function applyNewConfig(){
-        let newLifePhaseJsonString = JSON.parse(document.querySelector('.date-phase-array').value)
-        let newLifePointJsonString = JSON.parse(document.querySelector('.date-point-array').value)
+        let newLifePhase = JSON.parse(document.querySelector('.date-phase-array').value || '[]')
+        let newLifePoint = JSON.parse(document.querySelector('.date-point-array').value || '[]')
         let dateBirthString = document.querySelector('.date-birth').value.trim()
         let holeLifeAge = document.querySelector('.date-die').value.trim()
-        life.applyLifeConfig(dateBirthString, Number(holeLifeAge), newLifePhaseJsonString, newLifePointJsonString)
+        life.applyLifeConfig(dateBirthString, Number(holeLifeAge), newLifePhase, newLifePoint)
     }
 </script>
 
@@ -120,7 +117,7 @@
     textarea, input{
         white-space: nowrap;
         padding: 5px 8px;
-        line-height: 1.2;
+        line-height: 1.3;
         width: 800px;
         font-family: Consolas;
         font-size: 10px;
